@@ -3,11 +3,11 @@ name: CI
 on:
   push:
     branches:
-      - main
+      - master
       - fixes
   pull_request:
     branches:
-      - main
+      - master
       - fixes
 
 jobs:
