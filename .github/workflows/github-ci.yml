@@ -4,11 +4,9 @@ on:
   push:
     branches:
       - master
-      - fixes
   pull_request:
     branches:
       - master
-      - fixes
 
 jobs:
   Jest:
