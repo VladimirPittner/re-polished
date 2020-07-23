@@ -8,5 +8,6 @@ yarn-error.log
 .jest-test-results.json
 /lib
 /src/*.bs.js
+.bsb.lock
 .merlin
 dist
