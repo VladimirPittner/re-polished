@@ -151,9 +151,8 @@ let readable =
 let opacify = (cssColor: Css.Types.Color.t, amount: float): Css.Types.Color.t => {
   switch (Utils.cssToColor(cssColor)) {
   | Some(color) =>
-    let value =
-      Polished.Color.opacify(color, Polished.Types.Percent.make(amount));
-    Utils.colorToCss(value);
+    Polished.Color.opacify(color, Polished.Types.Percent.make(amount))
+    ->Utils.colorToCss
   | None =>
     Js.log("Opacify failed. Given css color(s) was invalid");
     cssColor;
@@ -163,9 +162,8 @@ let opacify = (cssColor: Css.Types.Color.t, amount: float): Css.Types.Color.t =>
 let darken = (cssColor: Css.Types.Color.t, amount: float): Css.Types.Color.t => {
   switch (Utils.cssToColor(cssColor)) {
   | Some(color) =>
-    let value =
-      Polished.Color.darken(color, Polished.Types.Percent.make(amount));
-    Utils.colorToCss(value);
+    Polished.Color.darken(color, Polished.Types.Percent.make(amount))
+    ->Utils.colorToCss
   | None =>
     Js.log("Darken failed. Given css color(s) was invalid");
     cssColor;
@@ -175,9 +173,8 @@ let darken = (cssColor: Css.Types.Color.t, amount: float): Css.Types.Color.t => 
 let lighten = (cssColor: Css.Types.Color.t, amount: float): Css.Types.Color.t => {
   switch (Utils.cssToColor(cssColor)) {
   | Some(color) =>
-    let value =
-      Polished.Color.lighten(color, Polished.Types.Percent.make(amount));
-    Utils.colorToCss(value);
+    Polished.Color.lighten(color, Polished.Types.Percent.make(amount))
+    ->Utils.colorToCss
   | None =>
     Js.log("Lighten failed. Given css color(s) was invalid");
     cssColor;
@@ -188,11 +185,115 @@ let desaturate =
     (cssColor: Css.Types.Color.t, amount: float): Css.Types.Color.t => {
   switch (Utils.cssToColor(cssColor)) {
   | Some(color) =>
-    let value =
-      Polished.Color.desaturate(color, Polished.Types.Percent.make(amount));
-    Utils.colorToCss(value);
+    Polished.Color.desaturate(color, Polished.Types.Percent.make(amount))
+    ->Utils.colorToCss
   | None =>
     Js.log("Desaturate failed. Given css color(s) was invalid");
+    cssColor;
+  };
+};
+
+let invert = (cssColor: Css.Types.Color.t): Css.Types.Color.t => {
+  switch (Utils.cssToColor(cssColor)) {
+  | Some(color) => Polished.Color.invert(color)->Utils.colorToCss
+  | None =>
+    Js.log("Invert failed. Given css color(s) was invalid");
+    cssColor;
+  };
+};
+
+let mix =
+    (
+      cssColor: Css.Types.Color.t,
+      cssBaseColor: Css.Types.Color.t,
+      weight: float,
+    )
+    : Css.Types.Color.t => {
+  switch (Utils.cssToColor(cssColor), Utils.cssToColor(cssBaseColor)) {
+  | (Some(color), Some(baseColor)) =>
+    let value =
+      Polished.Color.mix(
+        color,
+        baseColor,
+        Polished.Types.Percent.make(weight),
+      );
+    Utils.colorToCss(value);
+  | (Some(_), None)
+  | (None, Some(_))
+  | (None, None) =>
+    Js.log("Mix failed. One or both of the given css color(s) was invalid");
+    cssBaseColor;
+  };
+};
+
+let shade = (cssColor: Css.Types.Color.t, amount: float): Css.Types.Color.t => {
+  switch (Utils.cssToColor(cssColor)) {
+  | Some(color) =>
+    let value =
+      Polished.Color.shade(color, Polished.Types.Percent.make(amount));
+    Utils.colorToCss(value);
+  | None =>
+    Js.log("Shade failed. Given css color(s) was invalid");
+    cssColor;
+  };
+};
+
+let tint = (cssColor: Css.Types.Color.t, amount: float): Css.Types.Color.t => {
+  switch (Utils.cssToColor(cssColor)) {
+  | Some(color) =>
+    let value =
+      Polished.Color.tint(color, Polished.Types.Percent.make(amount));
+    Utils.colorToCss(value);
+  | None =>
+    Js.log("Shade failed. Given css color(s) was invalid");
+    cssColor;
+  };
+};
+
+let mix =
+    (
+      cssColor: Css.Types.Color.t,
+      cssBaseColor: Css.Types.Color.t,
+      weight: float,
+    )
+    : Css.Types.Color.t => {
+  switch (Utils.cssToColor(cssColor), Utils.cssToColor(cssBaseColor)) {
+  | (Some(color), Some(baseColor)) =>
+    let value =
+      Polished.Color.mix(
+        color,
+        baseColor,
+        Polished.Types.Percent.make(weight),
+      );
+    Utils.colorToCss(value);
+  | (Some(_), None)
+  | (None, Some(_))
+  | (None, None) =>
+    Js.log("Mix failed. One or both of the given css color(s) was invalid");
+    cssBaseColor;
+  };
+};
+
+let shade = (cssColor: Css.Types.Color.t, amount: float): Css.Types.Color.t => {
+  switch (Utils.cssToColor(cssColor)) {
+  | Some(color) =>
+    let value =
+      Polished.Color.shade(color, Polished.Types.Percent.make(amount));
+    Utils.colorToCss(value);
+  | None =>
+    Js.log("Shade failed. Given css color(s) was invalid");
+    cssColor;
+  };
+};
+
+let tint = (cssColor: Css.Types.Color.t, amount: float): Css.Types.Color.t => {
+  switch (Utils.cssToColor(cssColor)) {
+  | Some(color) =>
+    let value =
+      Polished.Color.tint(color, Polished.Types.Percent.make(amount));
+    Utils.colorToCss(value);
+  | None =>
+    Js.log("Shade failed. Given css color(s) was invalid");
     cssColor;
   };
 };
